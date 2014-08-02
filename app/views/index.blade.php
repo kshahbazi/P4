@@ -6,10 +6,6 @@ Welcome to P4-Buildings
 
 @section('content')
 
-<h1>P4-Buildings</h1>
-
-<br><br>
-
 <a href='/list-buildings'>View Properties</a>
 
 <br><br>

@@ -88,11 +88,11 @@ Route::get('/list-buildings', function() {
 		// format to show comma seperator
 		$sf= number_format($building->building_sf);
 		
-		$building_list .=  "<tr><td><a href='/building-units/".$building->building_id ."'><img class='buildingImages' src='/images/".
-			$building->address.".jpg' alt='".$building->building_id ."'></a></td>";
+		$building_list .=  "<tr><td><ul><li><a href='/building-units/".$building->building_id ."'><img class='buildingImages' src='/images/".
+			$building->address.".jpg' alt='".$building->building_id ."'></a></li>";
 		
-        $building_list .=  "<td>".$building->address."</td>";
-        $building_list .=  "<td>".$sf." SF"."</td></tr>";
+        $building_list .=  "<li>".$building->address."</li>";
+        $building_list .=  "<li>".$sf." SF"."</li></ul></td></tr>";
     }
 	
 	$building_list .= "</table></p>";
@@ -106,7 +106,7 @@ Route::get('/building-units/{id?}', function($id = '2') {
 
     $buildings = Building::where('building_id', '=', $id)->first();
 	$units = Unit::whereBuilding_id($id)->get();
-	$total_sf = 0;
+	$leases = $total_sf = 0;
 	
 	$building_units = "<p><h2>".$buildings->address."</h2><table>";
 	
@@ -121,7 +121,7 @@ Route::get('/building-units/{id?}', function($id = '2') {
 			echo $leases->tenant.'<br>';
 		} */
 		
-        $building_units .= '<tr><td>Unit '.$unit->unit_number.'</td><td>'.$unit->unit_sf.'SF'.'</td></tr>';  
+        $building_units .= '<tr class="unitRows"><td>Unit '.$unit->unit_number.'</td><td>'.$unit->unit_sf.'SF'.'</td></tr>';  
       }
 	}
 	# building has no units assigned
@@ -130,37 +130,9 @@ Route::get('/building-units/{id?}', function($id = '2') {
 		$building_units .= " is empty";
 	}
 	                  
-	//echo "Total square footage at ".$buildings->address." : ".$total_sf;
 	$building_units .= "</table></p>";
 	
 	return View::make('/building-units')->with('results',$building_units);
-	
-	/*$units = Unit::whereHas('lease', function($q)
-	/{
-		$q->where('building_id','like',$buildings->building_id);
-	})->get();*/
-	
-});
-
-Route::get('/building-unit', function()
-{
-	
-	foreach (Unit::with('building')->get() as $unit)
-	{
-	    echo $unit->building->building_sf.'<br>';
-	}
-	
-});
-
-Route::get('/unit-tenants', function()
-{
-	
-	foreach (Lease::with('unit')->get() as $lease)
-	{
-	    //echo $unit->unit_sf.'sf '.unit_number;
-		echo $lease->leases->tenant.'<br>';
-		$phone = User::find(1)->phone;
-	}
 	
 });
 

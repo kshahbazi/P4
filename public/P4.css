@@ -28,6 +28,8 @@ table
 {
 	display: block;
 	width: 90%;
+	margin-left: 5%;
+	margin-right:5%;
 	margin: 1em auto;
 	border:1px solid black;
 }
@@ -43,11 +45,18 @@ tr {
 
 td {
     display: inline-block;
-    width: 50%;
+    width: auto%;
 	padding:5px;
 	font-size:0.75rem;
 }
 
+ul{
+	list-style-type:none;
+	text-align:center;
+}
+.unitRows{
+	width: 90%;	
+}
 .subhead{
 	font-family: Smokum;
 	font-size:2.5rem;
