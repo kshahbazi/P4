@@ -22,7 +22,7 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
+			'host'      => 'production',
 			'database'  => 'mybuildings',
 			'username'  => 'robbyn',
 			'password'  => 'lyfi1Lz0',
