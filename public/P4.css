@@ -1,0 +1,169 @@
+html{
+	font-family: 'Oswald', sans-serif,"Courier New", cursive;
+}
+
+body{
+	background-image:url("bground-4.bmp");
+	text-align:center;
+	margin:0 auto;
+	padding:0px;
+}
+
+img{
+	padding-left:3px;
+}
+
+a:link { color: black; }
+a:active { color:#009; }
+a:visited { color: black; }
+a:hover { color:#666; }
+
+table
+{
+	border-collapse:collapse;
+	padding:15px;
+}
+
+table
+{
+	display: block;
+	width: 90%;
+	margin: 1em auto;
+	border:1px solid black;
+}
+
+tr {
+    display: block;
+    width: 30%;
+	height:25%;
+    float: left;
+    margin: 10px;
+    padding: 0;
+}
+
+td {
+    display: inline-block;
+    width: 50%;
+	padding:5px;
+	font-size:0.75rem;
+}
+
+.subhead{
+	font-family: Smokum;
+	font-size:2.5rem;
+	text-decoration:underline;
+}
+
+#container{
+	width:65%;
+	min-height:1000px;
+	margin: 0 auto;
+	background-color:#FFF;
+}
+
+#heading{
+	font-family: 'Oswald', sans-serif,"Courier New", cursive;
+	font-size:2.1rem;
+	font-weight:100;
+	background-color:#7A7474;
+	border-bottom: 3px solid #A11818;
+	color:#A11818;
+	text-align:left;
+	margin:0px;
+	padding: 0px;
+	padding-bottom: 0px;
+}
+
+#heading a{
+	text-decoration:none;
+}
+#heading a:link { color:#000; }
+#heading a:active { color:#000; }
+#heading a:visited { color:#000; }
+#heading a:hover { color:#A11818; }
+
+#login
+{
+	font-size:0.9rem;
+	font-weight:300;
+	color:#FFF;
+	background-color:#0B0303;
+	text-align:right;
+	margin:0px;
+	padding: 0px;
+}
+#login a:link { color:#FFF; }
+#login a:active { color:#FFF; }
+#login a:visited { color:#FFF; }
+#login a:hover { color:#A11818; }
+
+#mainContent p{
+	width:67%;
+	padding: 10px;
+	margin: 0 auto;
+	text-align:justify;
+	height:100%;
+	font-family: "Courier New", Courier, monospace;
+}
+
+#error{
+	font-size:.75em;
+	color:#900;
+	text-align:center;
+
+}
+
+#results{
+	font-size:2.1rem;
+	background-color:#FF695B;
+	color:#000;
+	text-align:center;
+	margin:15px 5px;
+	padding:20px;
+}
+
+.buildingImages {
+	width:150px;
+	height:150px;
+	text-decoration:none;	
+}
+
+.flash-message {
+width:100%;
+position:absolute;
+top:0;
+left:0;
+background-color:#FF6600;
+text-align:center;
+padding:5px;
+}
+
+.Table
+{
+    display: table;
+}
+.Title
+{
+    display: table-caption;
+    text-align: center;
+    font-weight: bold;
+    font-size: larger;
+}
+.Heading
+{
+    display: table-row;
+    font-weight: bold;
+    text-align: center;
+}
+.Row
+{
+    display: table-row;
+}
+.Cell
+{
+    display: table-cell;
+    border: solid;
+    border-width: thin;
+    padding-left: 5px;
+    padding-right: 5px;
+}
