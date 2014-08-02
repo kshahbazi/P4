@@ -117,11 +117,14 @@ Route::get('/building-units/{id?}', function($id = '2') {
 		
 		$leases = Lease::whereUnit_id($unit->unit_number)->get();
 		/*foreach($leases as $lease){
-			alert("tenants ");
 			echo $leases->tenant.'<br>';
 		} */
 		
-        $building_units .= '<tr class="unitRows"><td>Unit '.$unit->unit_number.'</td><td>'.$unit->unit_sf.'SF'.'</td></tr>';  
+        $building_units .= '<tr class="unitRows">
+							<td>Unit '.$unit->unit_number.'</td>
+							<td>'.$unit->unit_sf.'SF'.'</td>
+							<td>'.$unit->occupied.'</td>
+							</tr>';  
       }
 	}
 	# building has no units assigned
