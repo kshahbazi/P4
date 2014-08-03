@@ -23,7 +23,24 @@ Route::get('/logout', ['before' => 'auth', 'uses' => 'UserController@getLogout']
 # the index, or first page, view
 Route::get('/', function()
 {
-	return View::make('index');
+	$buildings =  Building::get(array('building_id','address','building_sf'));
+	$building_list = "<p><table>";
+	foreach($buildings as $building) {
+		
+		// square footage saved as int in db
+		// format to show comma seperator
+		$sf= number_format($building->building_sf);
+		
+		$building_list .=  "<tr><td><ul><li><a href='/building-units/".$building->building_id ."'><img class='buildingImages' src='/images/".
+			$building->address.".jpg' alt='".$building->building_id ."'></a></li>";
+		
+        $building_list .=  "<li>".$building->address."</li>";
+        $building_list .=  "<li>".$sf." SF"."</li></ul></td></tr>";
+    }
+	
+	$building_list .= "</table></p>";
+	
+	return View::make('index')->with('results',$building_list);
 });
 
 
@@ -39,7 +56,7 @@ Route::post('login', array('before' => 'csrf', function() {
             $credentials = Input::only('user_name', 'password');
 
             if (Auth::attempt($credentials, $remember = true)) {
-                return Redirect::intended('/list-buildings')->with('flash_message', 'Welcome Back!');
+                return Redirect::intended('/')->with('flash_message', 'Welcome Back!');
             }
             else {
                 return Redirect::to('/login')->with('flash_message', 'Log in failed; please try again.');
@@ -92,7 +109,7 @@ Route::get('/logout', function() {
 
 
 ######################################
-
+/*
 Route::get('/list-buildings', function() {
 
    	$buildings =  Building::get(array('building_id','address','building_sf'));
@@ -112,12 +129,13 @@ Route::get('/list-buildings', function() {
 	
 	$building_list .= "</table></p>";
 	
-	// append the generated text to the ligenerator page, within results	
 	return View::make('index')->with('results',$building_list);
 	
 });
+*/
+######################################
 
-Route::get('/building-units/{id?}', function($id = '2') {
+Route::get('/building-units/{id?}', array('before' => 'auth',function($id = '1') {
 
     $buildings = Building::where('building_id', '=', $id)->first();
 	$units = Unit::whereBuilding_id($id)->get();
@@ -155,7 +173,7 @@ Route::get('/building-units/{id?}', function($id = '2') {
 	
 	return View::make('/building-units')->with('results',$building_units);
 	
-});
+}));
 
 Route::get('/add-user', function() {
 
@@ -183,7 +201,7 @@ Route::get('/db-get', function() {
 
     # Typically we'd pass $books to a View, but for quick and dirty demonstration, let's just output here...
     foreach($users as $user) {
-        echo $user->email.'<br>';
+        echo "email: ".$user->email." user: ".$user->user_name." <br>";
     }
 
 });
@@ -204,12 +222,6 @@ Route::get('/get-environment',function() {
 
 });
 
-Route::get('/trigger-error',function() {
-
-    # Class Foobar should not exist, so this should create an error
-    $foo = new Foobar;
-
-});
 
 Route::get('/debug', function() {
 
