@@ -108,9 +108,6 @@ Route::get('/building-units/{id?}', function($id = '2') {
 	$units = Unit::whereBuilding_id($id)->get();
 	//$leases = Lease::whereUnit_id($units->unit_id)->get();
 	
-	$tenants = DB::instance()->select_rows("SELECT lease.tenant FROM buildings, units, leases WHERE buildings.building_id = units.building_id and units.unit_id=leases.unit_id");
-	
-	
 	$building_units = "<h2>".$buildings->address."</h2>
 					   <h4>Square footage ".number_format($buildings->building_sf)."</h4>
 					   <p><table>";

@@ -17,7 +17,7 @@ web1:
     - pdo_mysql
     - mcrypt
     - memcached
-  php_version: "5.4.14"
+  php_version: 5.4.14
   shared_writable_dirs: 
     - /app/storage/cache
     - /app/storage/logs
