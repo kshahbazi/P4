@@ -11,14 +11,14 @@
 |
 */
 
-Route::get('/', 'IndexController@getIndex');
+/*Route::get('/', 'IndexController@getIndex');
 
 Route::get('/signup', 'UserController@getSignup');
 Route::get('/login', 'UserController@getLogin' );
 Route::post('/signup', ['before' => 'csrf', 'uses' => 'UserController@postSignup'] );
 Route::post('/login', ['before' => 'csrf', 'uses' => 'UserController@postLogin'] );
 Route::get('/logout', ['before' => 'auth', 'uses' => 'UserController@getLogout'] );
-
+*/
 
 # the index, or first page, view
 Route::get('/', function()
@@ -26,7 +26,7 @@ Route::get('/', function()
 	return View::make('index');
 });
 
-/*
+
 ######################################
 // the login page, view
 Route::get('login', function()
@@ -34,6 +34,21 @@ Route::get('login', function()
 	return View::make('login');
 });
 
+Route::post('login', array('before' => 'csrf', function() {
+
+            $credentials = Input::only('user_name', 'password');
+
+            if (Auth::attempt($credentials, $remember = true)) {
+                return Redirect::intended('/list-buildings')->with('flash_message', 'Welcome Back!');
+            }
+            else {
+                return Redirect::to('/login')->with('flash_message', 'Log in failed; please try again.');
+            }
+
+            //return Redirect::to('login');
+        }
+    )
+);
 	
 Route::get('signup', array('before' => 'guest', function() {
 	return View::make('signup');
@@ -45,7 +60,7 @@ Route::post('signup', array('before' => 'csrf', function() {
 	$user = new User;
 	
 	// get form inputs
-	$user->user_name = Input::get('username');
+	$user->user_name = Input::get('user_name');
 	$user->email = Input::get('email');
 	$user->password = Hash::make(Input::get('password'));
 	
@@ -74,7 +89,7 @@ Route::get('/logout', function() {
 	return Redirect::to('/');
 
 });
-*/
+
 
 ######################################
 
@@ -180,6 +195,19 @@ Route::get('/db-delete', function() {
     $user->delete();
 
     return "Deleted user; check the database to see if it worked...";
+
+});
+
+Route::get('/get-environment',function() {
+
+    echo "Environment: ".App::environment();
+
+});
+
+Route::get('/trigger-error',function() {
+
+    # Class Foobar should not exist, so this should create an error
+    $foo = new Foobar;
 
 });
 

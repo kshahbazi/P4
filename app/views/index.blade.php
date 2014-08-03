@@ -10,13 +10,13 @@ Welcome to P4-Buildings
 
 <br><br>
 
-{{ Form::open(array('url' => '/list', 'method' => 'GET')) }}
+	{{ Form::open(array('url' => '/list', 'method' => 'GET')) }}
 
-{{ Form::label('query','Search for a property:') }} &nbsp;
-{{ Form::text('query') }} &nbsp;
-{{ Form::submit('Search!') }}
+		{{ Form::label('query','Search for a property:') }} &nbsp;
+		{{ Form::text('query') }} &nbsp;
+		{{ Form::submit('Search!') }}
 
-{{ Form::close() }}
+	{{ Form::close() }}
 
 @if (isset($results))
     <div class='results'>
