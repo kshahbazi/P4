@@ -28,6 +28,7 @@ return array(
 			'password'  => 'lyfi1Lz0',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
+			'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock',
 			'prefix'    => '',
 		),
 
