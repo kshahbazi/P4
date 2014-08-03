@@ -61,7 +61,7 @@ Route::post('signup', array('before' => 'csrf', function() {
 	# Log in
 	Auth::login($user);
 
-	return Redirect::to('signup')->with('flash_message', 'Welcome!');
+	return Redirect::to('/list-buildings')->with('flash_message', 'Welcome!');
 
 }));
 	
@@ -106,9 +106,18 @@ Route::get('/building-units/{id?}', function($id = '2') {
 
     $buildings = Building::where('building_id', '=', $id)->first();
 	$units = Unit::whereBuilding_id($id)->get();
-	$leases = $total_sf = 0;
+	//$leases = Lease::whereUnit_id($units->unit_id)->get();
 	
-	$building_units = "<p><h2>".$buildings->address."</h2><table>";
+	$tenants = DB::instance()->select_rows("SELECT lease.tenant FROM buildings, units, leases WHERE buildings.building_id = units.building_id and units.unit_id=leases.unit_id");
+	
+	
+	$building_units = "<h2>".$buildings->address."</h2>
+					   <h4>Square footage ".number_format($buildings->building_sf)."</h4>
+					   <p><table>";
+	
+	/*foreach (array_combine($units, $leases) as $unit => $lease) {
+	    echo $unit->unit_niumber . ' ' . $lease->tenant;
+	}*/
 	
 	# building has units assigned
 	if(!$units->isEmpty())
@@ -116,10 +125,7 @@ Route::get('/building-units/{id?}', function($id = '2') {
 		foreach($units as $unit) {
 		
 		$leases = Lease::whereUnit_id($unit->unit_number)->get();
-		/*foreach($leases as $lease){
-			echo $leases->tenant.'<br>';
-		} */
-		
+				
         $building_units .= '<tr class="unitRows">
 							<td>Unit '.$unit->unit_number.'</td>
 							<td>'.$unit->unit_sf.'SF'.'</td>

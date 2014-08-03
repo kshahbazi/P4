@@ -8,7 +8,13 @@ body{
 	margin:0 auto;
 	padding:0px;
 }
-
+h2
+{
+	margin-bottom: 0px;
+}
+h4{
+	margin:0px;
+}
 img{
 	padding-left:3px;
 }

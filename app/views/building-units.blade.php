@@ -1,7 +1,7 @@
 @extends('_master_P4')
 
 @section('title')
-P4 - All properties
+P4 - Building units
 @stop
 
 @section('content')
