@@ -9,16 +9,26 @@ class Building extends Eloquent {
 	
 	# Relationship method
 	public function units() {
-
 		# Building has many units
-        return $this->hasMany('Unit');
-        
+        return $this->hasMany('Unit');        
     }
 
-	public function leases()
-	    {
+	public function leases(){
 	        return $this->hasManyThrough('Lease', 'Unit');
-	    }
+	}
 	
+	public static function search($query) {
+
+		# If there is a query, search the library with that query
+		if($query) 
+		{
+			# Eager load units
+			$buildings = Building::with('units')
+				->where('address', 'LIKE', "%$query%")
+				->get();
+		}
+
+		return $buildings;	
+	}
   
 }

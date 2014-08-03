@@ -5,7 +5,7 @@ P4 - Building units
 @stop
 
 @section('content')
-
+<a href='/'>View All Properties</a>
 
 @if (isset($results))
     <div class='results'>

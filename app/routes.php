@@ -43,7 +43,45 @@ Route::get('/', function()
 	return View::make('index')->with('results',$building_list);
 });
 
+# process the search on the index page
+Route::post('/', function()
+{
+	$query = Input::get('query');
+	$buildings;
+	
+	# If there is a query, search the buildings' address to match query
+	if($query) 
+	{
+		# Eager load units
+		$buildings = Building::with('units')
+			->where('address', 'LIKE', "%$query%")
+			->get();
+	}
+	
+	$building_list = "<p><table>";
+	foreach($buildings as $building) {
+		
+		// square footage saved as int in db
+		// format to show comma seperator
+		$sf= number_format($building->building_sf);
+		
+		$building_list .=  "<tr><td><ul><li><a href='/building-units/".$building->building_id ."'><img class='buildingImages' src='/images/".
+			$building->address.".jpg' alt='".$building->building_id ."'></a></li>";
+		
+        $building_list .=  "<li>".$building->address."</li>";
+        $building_list .=  "<li>".$sf." SF"."</li></ul></td></tr>";
+    }
+	
+	$building_list .= "</table></p>";
+	
+	return View::make('/list')->with('results',$building_list);
+	
+});
 
+Route::get('/list', function()
+{
+	return View::make('list');
+});
 ######################################
 // the login page, view
 Route::get('login', function()

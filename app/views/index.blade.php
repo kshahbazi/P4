@@ -6,11 +6,10 @@ Welcome to P4-Buildings
 
 @section('content')
 
-<a href='/list-buildings'>View Properties</a>
 
-<br><br>
+<br>
 
-	{{ Form::open(array('url' => '/list', 'method' => 'GET')) }}
+	{{ Form::open(array('url' => '/', 'method' => 'POST')) }}
 
 		{{ Form::label('query','Search for a property:') }} &nbsp;
 		{{ Form::text('query') }} &nbsp;
