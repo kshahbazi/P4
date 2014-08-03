@@ -22,13 +22,12 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => '127.0.0.1',
+			'host'      => 'tunnel.pagodabox.com:3306',
 			'database'  => 'mybuildings',
 			'username'  => 'robbyn',
 			'password'  => 'lyfi1Lz0',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
-			'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock',
 			'prefix'    => '',
 		),
 
