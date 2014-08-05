@@ -44,50 +44,77 @@ Route::get('/', function()
 });
 
 # process the search on the index page
-Route::post('/', function()
+Route::post('/', array('before' => 'auth', function()
 {
 	$query = Input::get('query');
 	$buildings;
 	
-	# If there is a query, search the buildings' address to match query
-	if($query) 
-	{
+	# Step 1) Define the rules
+	$rules = array(
+		'query' => 'required|min:1'	
+	);	
+
+	# Step 2)
+	$validator = Validator::make(Input::all(), $rules);
+
+	# Step 3
+	if($validator->fails()) {
+		return Redirect::to('/')
+			->with('flash_message', 'No properties found; please enter new search.')
+			->withInput()
+			->withErrors($validator);
+	}		
+	
+	
 		# Eager load units
 		$buildings = Building::with('units')
 			->where('address', 'LIKE', "%$query%")
 			->get();
+	
+	
+		if(count($buildings) > 0)
+		{
+			
+		$building_list = "<p><table>";
+		foreach($buildings as $building) {
+		
+			// square footage saved as int in db
+			// format to show comma seperator
+			$sf= number_format($building->building_sf);
+		
+			$building_list .=  "<tr><td><ul><li><a href='/building-units/".
+				$building->building_id ."'><img class='buildingImages' src='/images/".
+				$building->address.".jpg' alt='".$building->building_id ."'></a></li>";
+		
+	        $building_list .=  "<li>".$building->address."</li>";
+	        $building_list .=  "<li>".$sf." SF"."</li></ul></td></tr>";
+	    }
+	
+		$building_list .= "</table></p>";
+	
+		return View::make('/list')->with('results',$building_list);
 	}
-	
-	$building_list = "<p><table>";
-	foreach($buildings as $building) {
-		
-		// square footage saved as int in db
-		// format to show comma seperator
-		$sf= number_format($building->building_sf);
-		
-		$building_list .=  "<tr><td><ul><li><a href='/building-units/".$building->building_id ."'><img class='buildingImages' src='/images/".
-			$building->address.".jpg' alt='".$building->building_id ."'></a></li>";
-		
-        $building_list .=  "<li>".$building->address."</li>";
-        $building_list .=  "<li>".$sf." SF"."</li></ul></td></tr>";
-    }
-	
-	$building_list .= "</table></p>";
-	
-	return View::make('/list')->with('results',$building_list);
-	
-});
+	#
+	#
+	# need to correct this
+	// if query empty return to index page
+	else
+	{
+			return Redirect::to('/')->with('flash_message', 'No matches found.');;
+	}
+}));
 
 Route::get('/list', function()
 {
 	return View::make('list');
 });
+
 ######################################
 // the login page, view
-Route::get('login', function()
+Route::get('login', array('before' => 'guest', function()
 {
 	return View::make('login');
-});
+}));
 
 Route::post('login', array('before' => 'csrf', function() {
 
@@ -100,7 +127,7 @@ Route::post('login', array('before' => 'csrf', function() {
                 return Redirect::to('/login')->with('flash_message', 'Log in failed; please try again.');
             }
 
-            //return Redirect::to('login');
+            return Redirect::to('login');
         }
     )
 );
@@ -110,6 +137,24 @@ Route::get('signup', array('before' => 'guest', function() {
 }));
 
 Route::post('signup', array('before' => 'csrf', function() {
+	
+	# Step 1) Define the rules
+	$rules = array(
+		'user_name' => 'required|min:3',
+		'email' => 'required|email|unique:users,email',
+		'password' => 'required|min:6'	
+	);	
+
+	# Step 2)
+	$validator = Validator::make(Input::all(), $rules);
+
+	# Step 3
+	if($validator->fails()) {
+		return Redirect::to('/signup')
+			->with('flash_message', 'Sign up failed; please fix the errors listed below.')
+			->withInput()
+			->withErrors($validator);
+	}
 	
 	// create an instance of User
 	$user = new User;
@@ -176,29 +221,35 @@ Route::get('/list-buildings', function() {
 Route::get('/building-units/{id?}', array('before' => 'auth',function($id = '1') {
 
     $buildings = Building::where('building_id', '=', $id)->first();
+	
+	#get all the units for this building
 	$units = Unit::whereBuilding_id($id)->get();
-	//$leases = Lease::whereUnit_id($units->unit_id)->get();
+	
+	//$tenants = DB::select('SELECT leases.tenant FROM buildings, units, leases WHERE buildings.building_id = units.building_id and units.unit_id=leases.unit_id');
 	
 	$building_units = "<h2>".$buildings->address."</h2>
 					   <h4>Square footage ".number_format($buildings->building_sf)."</h4>
 					   <p><table>";
-	
-	/*foreach (array_combine($units, $leases) as $unit => $lease) {
-	    echo $unit->unit_niumber . ' ' . $lease->tenant;
-	}*/
 	
 	# building has units assigned
 	if(!$units->isEmpty())
 	{
 		foreach($units as $unit) {
 		
-		$leases = Lease::whereUnit_id($unit->unit_number)->get();
-				
-        $building_units .= '<tr class="unitRows">
+		# with all the units we filtered by passing the building id above
+		# we can now get each lease that belongs to a unit within that building
+		$lease = Lease::whereUnit_id($unit->unit_id)->first();
+		
+		# now query the rent table by accessing the lease id
+		# so we can get each lease's rent_amount, begin rent and end rent details
+		$rent = Rent::whereLease_id($lease->lease_id)->first();
+		echo "<p>".$rent."</p>";
+		
+		$building_units .= '<tr class="unitRows">
 							<td>Unit '.$unit->unit_number.'</td>
 							<td>'.$unit->unit_sf.'SF'.'</td>
-							<td>'.$unit->occupied.'</td>
-							</tr>';  
+							<td>'.$lease->tenant.'</td>
+							</tr>'; 
       }
 	}
 	# building has no units assigned

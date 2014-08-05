@@ -137,6 +137,10 @@ ul{
 	padding:20px;
 }
 
+.error {
+color:red;
+}
+
 .buildingImages {
 	width:150px;
 	height:150px;

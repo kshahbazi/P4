@@ -8,6 +8,9 @@ Welcome to P4-Buildings
 
 
 <br>
+	@foreach($errors->all() as $message)
+		<div class='error'>{{ $message }}</div>
+	@endforeach
 
 	{{ Form::open(array('url' => '/', 'method' => 'POST')) }}
 
