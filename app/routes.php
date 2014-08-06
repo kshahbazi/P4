@@ -284,12 +284,16 @@ Route::get('/add-user', function() {
     # Set 
     /*$user->user_name = 'Seaver';
     $user->email = 'steve-o@hotmail.com';
-    $user->password = 'steveo';
+    $user->password = 'steveo';*/
     
-    # This is where the Eloquent ORM magic happens
-    $user->save();
+    DB::statement('SET FOREIGN_KEY_CHECKS=0'); # Disable FK constraints so that all rows can be deleted, even if there's an associated FK
+	  DB::statement('TRUNCATE users');
 
-    return 'A new user has been added! Check the database to see...';*/
+	  $user1              = new User;
+	  $user1->user_name   = 'Alfred';
+	  $user1->email       = 'all.red@msn.com';
+	  $user1->password    = Hash::make('allred');
+	  $user1->save();
 
 });
 
@@ -384,7 +388,7 @@ Route::get('/seed-buildings',function() {
 	  $building9->save();
 
 	  $building10              = new Building;
-	  $building10->address     = '55 Washington St, Dedham MAA';
+	  $building10->address     = '55 Washington St, Dedham MA';
 	  $building10->type        = 'Office';
 	  $building10->building_sf = '65000';
 	  $building10->save();
