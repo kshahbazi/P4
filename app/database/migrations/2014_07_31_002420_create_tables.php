@@ -55,22 +55,6 @@ class CreateTables extends Migration {
 
 		});
 		
-		# Create the tenants table
-		Schema::create('tenants', function($table) {
-
-		# AI, PK
-		# would still need to explicitly declare PK in the Tenant model file
-		# since Eloquent assumes that each table has a primary key column named id. 
-		$table->increments('tenant_id');
-
-		# General data...
-		$table->string('tenant_name');
-		
-		# No foreign keys...
-		
-		});
-		
-		
 		# Create the leases table
 		Schema::create('leases', function($table) {
 
@@ -81,7 +65,7 @@ class CreateTables extends Migration {
 
 		# General data...
 		$table->integer('unit_id')->unsigned(); # Important! FK has to be unsigned because the PK it will reference is auto-incrementing
-		$table->integer('tenant_id')->unsigned(); # Important! FK has to be unsigned because the PK it will reference is auto-incrementing
+		$table->string('tenant');
 		
 		# Define foreign keys...
 		# to relate to the units table
@@ -89,13 +73,6 @@ class CreateTables extends Migration {
 			  ->references('unit_id')
 			  ->on('units')
 			  ->onDelete('cascade');
-		
-		# to get the tenant_name	
-		$table->foreign('tenant_id')
-			  ->references('tenant_id')
-			  ->on('tenants')
-			  ->onDelete('cascade');
-
 		});
 		
 		
@@ -134,8 +111,7 @@ class CreateTables extends Migration {
 		# reverse my steps by severing the relationship
 		# first drop the foreign keys
 		Schema::table('leases', function($table) {
-			$table->dropForeign('leases_unit_id_foreign');
-			$table->dropForeign('leases_tenant_id_foreign'); # table_fields_foreign
+			$table->dropForeign('leases_unit_id_foreign'); # table_fields_foreign
 		});
 		
 		Schema::table('rents', function($table) {
@@ -150,7 +126,6 @@ class CreateTables extends Migration {
 		Schema::drop('buildings');
 		Schema::drop('units');
 		Schema::drop('leases');
-		Schema::drop('tenants');
 		Schema::drop('rents');	
 		
 	}	

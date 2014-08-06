@@ -229,7 +229,7 @@ Route::get('/building-units/{id?}', array('before' => 'auth',function($id = '1')
 	
 	$building_units = "<h2>".$buildings->address."</h2>
 					   <h4>Square footage ".number_format($buildings->building_sf)."</h4>
-					   <p><table>";
+					   <p><table id='building_units'>";
 	
 	# building has units assigned
 	if(!$units->isEmpty())
@@ -243,13 +243,25 @@ Route::get('/building-units/{id?}', array('before' => 'auth',function($id = '1')
 		# now query the rent table by accessing the lease id
 		# so we can get each lease's rent_amount, begin rent and end rent details
 		$rent = Rent::whereLease_id($lease->lease_id)->first();
-		echo "<p>".$rent."</p>";
+		
+		
+		
+		/*if($unit->ocuupied = "occupied")
+		{ 
+			'<td>'.$lease->tenant.'</td>'.
+		}
+		else
+		{
+			'<td>'.$unit->ocuupied.'</td>'.
+		}*/
 		
 		$building_units .= '<tr class="unitRows">
 							<td>Unit '.$unit->unit_number.'</td>
-							<td>'.$unit->unit_sf.'SF'.'</td>
-							<td>'.$lease->tenant.'</td>
-							</tr>'; 
+							<td>'.$unit->unit_sf.'SF'.'</td>'.
+							'<td>'.$lease->tenant.'</td>'.
+							'<td>'.$rent->rent_amount.'</td>'.
+							'<td>'.$rent->end_rent.'</td>'.
+							'</tr>'; 
       }
 	}
 	# building has no units assigned

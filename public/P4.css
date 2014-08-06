@@ -147,6 +147,10 @@ color:red;
 	text-decoration:none;	
 }
 
+table .building_units{
+	border: 1px solid black;
+}
+
 .flash-message {
 width:100%;
 position:absolute;
