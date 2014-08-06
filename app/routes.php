@@ -323,6 +323,41 @@ Route::get('/get-environment',function() {
 
 });
 
+Route::get('/seed-buildings',function() {
+
+    $building1             = new Building;
+    $building1->address       = '63 Stanhoper St, Boston MA';
+    $building1->type = 'Office';
+    $building1->building_sf = '91000';
+	$building1->save();
+    
+    $building2             = new Building;
+    $building2->address       = '6 Harcourt Lane, Brookline MA';
+    $building2->type = 'Office';
+    $building2->building_sf = '51500';
+	$building2->save();
+    
+    $building3             = new Building;
+    $building3->address       = '3 Serendipity Rd, Waltham MA';
+    $building3->type = 'Office';
+    $building3->building_sf = '201000';
+	$building3->save();
+    
+	$building4             = new Building;
+    $building4->address       = '1001 Mass Ave, Boston MA';
+    $building4->type = 'Office';
+    $building4->building_sf = '18000';
+	$building4->save();
+    
+	$building5             = new Building;
+    $building5->address       = '335 Upton Junction, Southborough MA';
+    $building5->type = 'Office';
+    $building5->building_sf = '165000';
+	$building5->save();
+	
+	echo "Buildings seeded"
+
+});
 
 Route::get('/debug', function() {
 
