@@ -325,37 +325,94 @@ Route::get('/get-environment',function() {
 
 Route::get('/seed-buildings',function() {
 
-    $building1             = new Building;
-    $building1->address       = '63 Stanhoper St, Boston MA';
-    $building1->type = 'Office';
-    $building1->building_sf = '91000';
-	$building1->save();
-    
-    $building2             = new Building;
-    $building2->address       = '6 Harcourt Lane, Brookline MA';
-    $building2->type = 'Office';
-    $building2->building_sf = '51500';
-	$building2->save();
-    
-    $building3             = new Building;
-    $building3->address       = '3 Serendipity Rd, Waltham MA';
-    $building3->type = 'Office';
-    $building3->building_sf = '201000';
-	$building3->save();
-    
-	$building4             = new Building;
-    $building4->address       = '1001 Mass Ave, Boston MA';
-    $building4->type = 'Office';
-    $building4->building_sf = '18000';
-	$building4->save();
-    
-	$building5             = new Building;
-    $building5->address       = '335 Upton Junction, Southborough MA';
-    $building5->type = 'Office';
-    $building5->building_sf = '165000';
-	$building5->save();
-	
-	echo "Buildings seeded";
+    # Clear the tables to a blank slate
+	  DB::statement('SET FOREIGN_KEY_CHECKS=0'); # Disable FK constraints so that all rows can be deleted, even if there's an associated FK
+	  DB::statement('TRUNCATE buildings');
+
+	  $building1              = new Building;
+	  $building1->address     = '63 Stanhoper St, Boston MA';
+	  $building1->type        = 'Office';
+	  $building1->building_sf = '91000';
+	  $building1->save();
+
+	  $building2              = new Building;
+	  $building2->address     = '6 Harcourt Lane, Brookline MA';
+	  $building2->type        = 'Office';
+	  $building2->building_sf = '51500';
+	  $building2->save();
+
+	  $building3              = new Building;
+	  $building3->address     = '3 Serendipity Rd, Waltham MA';
+	  $building3->type        = 'Office';
+	  $building3->building_sf = '201000';
+	  $building3->save();
+
+	  $building14              = new Building;
+	  $building14->address     = '1001 Mass Ave, Boston MA';
+	  $building14->type        = 'Office';
+	  $building14->building_sf = '18000';
+	  $building14->save();
+
+	  $building5              = new Building;
+	  $building5->address     = '335 Upton Junction, Southborough MA';
+	  $building5->type        = 'Office';
+	  $building5->building_sf = '165000';
+	  $building5->save();
+
+	  $building6              = new Building;
+	  $building6->address     = '11 Daniel Webster Highway, Nashua NH';
+	  $building6->type        = 'Office';
+	  $building6->building_sf = '41000';
+	  $building6->save();
+
+	  $building7              = new Building;
+	  $building7->address     = '100 Old Mill Road, Salem NH';
+	  $building7->type        = 'Office';
+	  $building7->building_sf = '113750';
+	  $building7->save();
+
+	  $building8              = new Building;
+	  $building8->address     = '200 Memorial Dr, Cambridge MA';
+	  $building8->type        = 'Office';
+	  $building8->building_sf = '11000';
+	  $building8->save();
+
+	  $building9              = new Building;
+	  $building9->address     = '6973 Greenwich Rd, Stamford CT';
+	  $building9->type        = 'Office';
+	  $building9->building_sf = '107000';
+	  $building9->save();
+
+	  $building10              = new Building;
+	  $building10->address     = '55 Washington St, Dedham MAA';
+	  $building10->type        = 'Office';
+	  $building10->building_sf = '65000';
+	  $building10->save();
+
+
+	  $building11              = new Building;
+	  $building11->address     = '141 Morehead Dr, Westborough MA';
+	  $building11->type        = 'Office';
+	  $building11->building_sf = '181000';
+	  $building11->save();
+
+	  $building12              = new Building;
+	  $building12->address     = '25 Dearbourne Rd, Danvers MA';
+	  $building12->type        = 'Office';
+	  $building12->building_sf = '23750';
+	  $building12->save();
+
+	  $building13              = new Building;
+	  $building13->address     = '33 Henshaw Drive, Stoughton MA';
+	  $building13->type        = 'Office';
+	  $building13->building_sf = '37000';
+	  $building13->save();
+
+	  $building14              = new Building;
+	  $building14->address     = '111 Washington St, Boston MA';
+	  $building14->type        = 'Office';
+	  $building14->building_sf = '92000';
+	  $building14->save();	  echo "Buildings seeded";
 
 });
 
