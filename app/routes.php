@@ -355,7 +355,7 @@ Route::get('/seed-buildings',function() {
     $building5->building_sf = '165000';
 	$building5->save();
 	
-	echo "Buildings seeded"
+	echo "Buildings seeded";
 
 });
 
