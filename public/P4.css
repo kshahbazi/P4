@@ -26,18 +26,13 @@ a:hover { color:#666; }
 
 table
 {
-	border-collapse:collapse;
-	padding:15px;
-}
-
-table
-{
 	display: block;
 	width: 90%;
 	margin-left: 5%;
 	margin-right:5%;
 	margin: 1em auto;
 	border:1px solid black;
+	padding:15px;
 }
 
 tr {
@@ -146,8 +141,23 @@ color:red;
 	height:150px;
 	text-decoration:none;	
 }
+table#building_units{
+	display: block;
+	width: 85%;
+	margin-left: 5%;
+	margin-right:5%;
+	margin: 1em auto;
+	background-color:#F0F0F0;
+}
 
-table .building_units{
+table#building_units td{
+	font-size:1.55rem;
+}
+
+table#building_units tr{
+	margin:20px;
+	padding:10px;
+	display: inline;
 	border: 1px solid black;
 }
 
@@ -161,32 +171,3 @@ text-align:center;
 padding:5px;
 }
 
-.Table
-{
-    display: table;
-}
-.Title
-{
-    display: table-caption;
-    text-align: center;
-    font-weight: bold;
-    font-size: larger;
-}
-.Heading
-{
-    display: table-row;
-    font-weight: bold;
-    text-align: center;
-}
-.Row
-{
-    display: table-row;
-}
-.Cell
-{
-    display: table-cell;
-    border: solid;
-    border-width: thin;
-    padding-left: 5px;
-    padding-right: 5px;
-}

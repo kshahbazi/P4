@@ -229,12 +229,15 @@ Route::get('/building-units/{id?}', array('before' => 'auth',function($id = '1')
 	
 	$building_units = "<h2>".$buildings->address."</h2>
 					   <h4>Square footage ".number_format($buildings->building_sf)."</h4>
+						<img class='buildingImages' src='/images/".
+							$buildings->address.".jpg' alt='".$buildings->building_id ."'>.
 					   <p><table id='building_units'>";
 	
 	# building has units assigned
 	if(!$units->isEmpty())
 	{
-		foreach($units as $unit) {
+		foreach($units as $unit) 
+		{
 		
 		# with all the units we filtered by passing the building id above
 		# we can now get each lease that belongs to a unit within that building
@@ -244,25 +247,26 @@ Route::get('/building-units/{id?}', array('before' => 'auth',function($id = '1')
 		# so we can get each lease's rent_amount, begin rent and end rent details
 		$rent = Rent::whereLease_id($lease->lease_id)->first();
 		
-		
-		
-		/*if($unit->ocuupied = "occupied")
-		{ 
-			'<td>'.$lease->tenant.'</td>'.
-		}
-		else
-		{
-			'<td>'.$unit->ocuupied.'</td>'.
-		}*/
-		
 		$building_units .= '<tr class="unitRows">
 							<td>Unit '.$unit->unit_number.'</td>
-							<td>'.$unit->unit_sf.'SF'.'</td>'.
-							'<td>'.$lease->tenant.'</td>'.
-							'<td>'.$rent->rent_amount.'</td>'.
-							'<td>'.$rent->end_rent.'</td>'.
-							'</tr>'; 
-      }
+							<td>'.$unit->unit_sf.'sf</td>';
+		
+		# if unit is 'occupied' there will be a
+		# $lease->tenant and $rent...etc.
+		if($lease->count())
+		{
+			$building_units .=	'<td>'.$lease->tenant.'</td>
+								<td>$'.$rent->rent_amount.'</td>
+								<td>'.$rent->end_rent.'</td>';
+			
+		}
+		# instead just output 'vacant'
+		else
+		{
+			$building_units .= '<td>vacant</td>
+			</tr>';
+		}					
+	  }
 	}
 	# building has no units assigned
 	else
@@ -277,14 +281,6 @@ Route::get('/building-units/{id?}', array('before' => 'auth',function($id = '1')
 }));
 
 Route::get('/add-user', function() {
-
-    # Instantiate a new Book model class
-    //$user = new User();
-
-    # Set 
-    /*$user->user_name = 'Seaver';
-    $user->email = 'steve-o@hotmail.com';
-    $user->password = 'steveo';*/
     
     DB::statement('SET FOREIGN_KEY_CHECKS=0'); # Disable FK constraints so that all rows can be deleted, even if there's an associated FK
 	  DB::statement('TRUNCATE users');
@@ -296,8 +292,6 @@ Route::get('/add-user', function() {
 	  $user1->save();
 
 });
-
-
 
 Route::get('/db-get', function() {
 
@@ -420,47 +414,388 @@ Route::get('/seed-buildings',function() {
 
 });
 
-Route::get('/debug', function() {
+Route::get('/seed-units',function() {
 
-    echo '<pre>';
+	  # Clear the tables to a blank slate
+	  DB::statement('SET FOREIGN_KEY_CHECKS=0'); # Disable FK constraints so that all rows can be deleted, even if there's an associated FK
+	  DB::statement('TRUNCATE units');
 
-    echo '<h1>environment.php</h1>';
-    $path   = base_path().'/environment.php';
+	  $unit1              = new Unit;
+	  $unit1->building_id = 1;
+	  $unit1->unit_number = 101;
+	  $unit1->unit_sf     = 1200;
+	  $unit1->occupied    = 'occupied';
+	  $unit1->save();
 
-    try {
-        $contents = 'Contents: '.File::getRequire($path);
-        $exists = 'Yes';
-    }
-    catch (Exception $e) {
-        $exists = 'No. Defaulting to `production`';
-        $contents = '';
-    }
+	  $unit2              = new Unit;
+	  $unit2->building_id = 1;
+	  $unit2->unit_number = 102;
+	  $unit2->unit_sf     = 1800;
+	  $unit2->occupied    = 'occupied';
+	  $unit2->save();
 
-    echo "Checking for: ".$path.'<br>';
-    echo 'Exists: '.$exists.'<br>';
-    echo $contents;
-    echo '<br>';
+	  $unit3              = new Unit;
+	  $unit3->building_id = 1;
+	  $unit3->unit_number = 103;
+	  $unit3->unit_sf     = 1000;
+	  $unit3->occupied    = 'occupied';
+	  $unit3->save();
 
-    echo '<h1>Environment</h1>';
-    echo App::environment().'</h1>';
+	  $unit4              = new Unit;
+	  $unit4->building_id = 1;
+	  $unit4->unit_number = 201;
+	  $unit4->unit_sf     = 1000;
+	  $unit4->occupied    = 'occupied';
+	  $unit4->save();
 
-    echo '<h1>Debugging?</h1>';
-    if(Config::get('app.debug')) echo "Yes"; else echo "No";
+	  $unit5              = new Unit;
+	  $unit5->building_id = 1;
+	  $unit5->unit_number = 202;
+	  $unit5->unit_sf     = 1000;
+	  $unit5->occupied    = 'occupied';
+	  $unit5->save();
 
-    echo '<h1>Database Config</h1>';
-    print_r(Config::get('database.connections.mysql'));
+	  $unit6              = new Unit;
+	  $unit6->building_id = 1;
+	  $unit6->unit_number = 203;
+	  $unit6->unit_sf     = 1000;
+	  $unit6->occupied    = 'occupied';
+	  $unit6->save();
 
-    echo '<h1>Test Database Connection</h1>';
-    try {
-        $results = DB::select('SHOW DATABASES;');
-        echo '<strong style="background-color:green; padding:5px;">Connection confirmed</strong>';
-        echo "<br><br>Your Databases:<br><br>";
-        print_r($results);
-    } 
-    catch (Exception $e) {
-        echo '<strong style="background-color:crimson; padding:5px;">Caught exception: ', $e->getMessage(), "</strong>\n";
-    }
+	  $unit7              = new Unit;
+	  $unit7->building_id = 1;
+	  $unit7->unit_number = 204;
+	  $unit7->unit_sf     = 1000;
+	  $unit7->occupied    = 'occupied';
+	  $unit7->save();
 
-    echo '</pre>';
+	  $unit8              = new Unit;
+	  $unit8->building_id = 1;
+	  $unit8->unit_number = 300;
+	  $unit8->unit_sf     = 3000;
+	  $unit8->occupied    = 'occupied';
+	  $unit8->save();
+
+	  $unit9              = new Unit;
+	  $unit9->building_id = 2;
+	  $unit9->unit_number = 100;
+	  $unit9->unit_sf     = 750;
+	  $unit9->occupied    = 'occupied';
+	  $unit9->save();
+
+	  $unit10              = new Unit;
+	  $unit10->building_id = 2;
+	  $unit10->unit_number = 111;
+	  $unit10->unit_sf     = 5000;
+	  $unit10->occupied    = 'occupied';
+	  $unit10->save();
+
+
+	  $unit11              = new Unit;
+	  $unit11->building_id = 2;
+	  $unit11->unit_number = 115;
+	  $unit11->unit_sf     = 2000;
+	  $unit11->occupied    = 'occupied';
+	  $unit11->save();
+
+	  $unit12              = new Unit;
+	  $unit12->building_id = 2;
+	  $unit12->unit_number = 201;
+	  $unit12->unit_sf     = 1750;
+	  $unit12->occupied    = 'occupied';
+	  $unit12->save();
+
+	  $unit13              = new Unit;
+	  $unit13->building_id = 2;
+	  $unit13->unit_number = 202;
+	  $unit13->unit_sf     = 1000;
+	  $unit13->occupied    = 'occupied';
+	  $unit13->save();
+
+	  $unit14              = new Unit;
+	  $unit14->building_id = 2;
+	  $unit14->unit_number = 203;
+	  $unit14->unit_sf     = 3500;
+	  $unit14->occupied    = 'occupied';
+	  $unit14->save();
+	
+	  $unit15              = new Unit;
+	  $unit15->building_id = 2;
+	  $unit15->unit_number = 215;
+	  $unit15->unit_sf     = 1500;
+	  $unit15->occupied    = 'occupied';
+	  $unit15->save();
+
+	  $unit16              = new Unit;
+	  $unit16->building_id = 2;
+	  $unit16->unit_number = 300;
+	  $unit16->unit_sf     = 7750;
+	  $unit16->occupied    = 'occupied';
+	  $unit16->save();
+
+	  $unit17              = new Unit;
+	  $unit17->building_id = 2;
+	  $unit17->unit_number = 400;
+	  $unit17->unit_sf     = 3750;
+	  $unit17->occupied    = 'occupied';
+	  $unit17->save();
+
+	  $unit18              = new Unit;
+	  $unit18->building_id = 2;
+	  $unit18->unit_number = 450;
+	  $unit18->unit_sf     = 4000;
+	  $unit18->occupied    = 'occupied';
+	  $unit18->save();
+	
+
+	  echo "Units seeded";
+
+});
+
+Route::get('/seed-leases',function() {
+
+	  # Clear the tables to a blank slate
+	  DB::statement('SET FOREIGN_KEY_CHECKS=0'); # Disable FK constraints so that all rows can be deleted, even if there's an associated FK
+	  DB::statement('TRUNCATE leases');
+
+	  $lease1          = new Lease;
+	  $lease1->unit_id = 1;
+	  $lease1->tenant  = 'Zachariah & Zachariah, LLP';
+	  $lease1->save();
+
+	  $lease2          = new Lease;
+	  $lease2->unit_id = 2;
+	  $lease2->tenant  = 'Ivax Corp.';
+	  $lease2->save();
+
+	  $lease3          = new Lease;
+	  $lease3->unit_id = 3;
+	  $lease3->tenant  = 'Stanley Rental';
+	  $lease3->save();
+
+	  $lease4          = new Lease;
+	  $lease4->unit_id = 4;
+	  $lease4->tenant  = 'Quintilium';
+	  $lease4->save();
+
+	  $lease5          = new Lease;
+	  $lease5->unit_id = 5;
+	  $lease5->tenant  = 'Pilgrims Pride';
+	  $lease5->save();
+
+	  $lease6          = new Lease;
+	  $lease6->unit_id = 6;
+	  $lease6->tenant  = 'A.G. Edwards Inc.';
+	  $lease6->save();
+
+	  $lease7          = new Lease;
+	  $lease7->unit_id = 7;
+	  $lease7->tenant  = 'First Data Corp.';
+	  $lease7->save();
+
+	  $lease8          = new Lease;
+	  $lease8->unit_id = 8;
+	  $lease8->tenant  = 'Praxomide';
+	  $lease8->save();
+
+	  $lease9          = new Lease;
+	  $lease9->unit_id = 9;
+	  $lease9->tenant  = 'LSAT Helpers';
+	  $lease9->save();
+
+	  $lease10          = new Lease;
+	  $lease10->unit_id = 10;
+	  $lease10->tenant  = 'Movifone';
+	  $lease10->save();
+
+	  $lease11          = new Lease;
+	  $lease11->unit_id = 11;
+	  $lease11->tenant  = 'Reachout Brother';
+	  $lease11->save();
+
+	  $lease12          = new Lease;
+	  $lease12->unit_id = 12;
+	  $lease12->tenant  = 'Kilpatrick Corp.';
+	  $lease12->save();
+
+	  $lease13          = new Lease;
+	  $lease13->unit_id = 13;
+	  $lease13->tenant  = 'Albert, Stanley & Howard';
+	  $lease13->save();
+
+	  $lease14          = new Lease;
+	  $lease14->unit_id = 14;
+	  $lease14->tenant  = 'Newburgh Pediatrics';
+	  $lease14->save();
+
+	  $lease15          = new Lease;
+	  $lease15->unit_id = 15;
+	  $lease15->tenant  = 'Prideloni & Macaroni';
+	  $lease15->save();
+
+	  $lease16          = new Lease;
+	  $lease16->unit_id = 16;
+	  $lease16->tenant  = 'Inc. Magazine';
+	  $lease16->save();
+
+	  $lease17          = new Lease;
+	  $lease17->unit_id = 17;
+	  $lease17->tenant  = 'Youbiz';
+	  $lease17->save();
+
+	  $lease18          = new Lease;
+	  $lease18->unit_id = 18;
+	  $lease18->tenant  = 'Baxter International Inc. ';
+	  $lease18->save();
+
+
+	  /*
+	  1 	Zachariah & Zachariah, LLP 	0
+	  2 	Ivax Corp. 	0
+	  3 	Stanley Rental 	0
+	  4 	Quintilium 				VACANT
+	  5 	Pilgrims Pride 	0
+	  6 	A.G. Edwards Inc. 	0
+	  7 	First Data Corp. 		VACANT
+	  8 	Praxomide
+	  */
+
+	  echo "Leases seeded";
+
+});
+	
+Route::get('/seed-rents',function() {
+
+	  # Clear the tables to a blank slate
+	  DB::statement('SET FOREIGN_KEY_CHECKS=0'); # Disable FK constraints so that all rows can be deleted, even if there's an associated FK
+	  DB::statement('TRUNCATE rents');
+
+	  $rent1          = new Rent;
+	  $rent1->lease_id = 1;
+	  $rent1->rent_amount  = 18;
+	  $rent1->begin_rent = '2010-01-01';
+	  $rent1->end_rent  = '2012-12-31';
+	  $rent1->save();
+
+	  $rent2          = new Rent;
+	  $rent2->lease_id = 2;
+	  $rent2->rent_amount  = 25.5;
+	  $rent2->begin_rent = '2009-05-01';
+	  $rent2->end_rent  = '2014-10-31';
+	  $rent2->save();
+
+	  $rent3          = new Rent;
+	  $rent3->lease_id = 3;
+	  $rent3->rent_amount  = 22.50;
+	  $rent3->begin_rent = '2013-12-03';
+	  $rent3->end_rent  = '2018-12-02';
+	  $rent3->save();
+
+	  $rent4          = new Rent;
+	  $rent4->lease_id = 4;
+	  $rent4->rent_amount  = 28;
+	  $rent4->begin_rent = '2010-09-01';
+	  $rent4->end_rent  = '2014-08-31';
+	  $rent4->save();
+
+	  $rent5          = new Rent;
+	  $rent5->lease_id = 5;
+	  $rent5->rent_amount  = 16.5;
+	  $rent5->begin_rent = '2014-05-01';
+	  $rent5->end_rent  = '2016-04-30';
+	  $rent5->save();
+
+	  $rent6          = new Rent;
+	  $rent6->lease_id = 6;
+	  $rent6->rent_amount  = 21.75;
+	  $rent6->begin_rent = '2012-06-06';
+	  $rent6->end_rent  = '2022-06-05';
+	  $rent6->save();
+
+	  $rent7          = new Rent;
+	  $rent7->lease_id = 7;
+	  $rent7->rent_amount  = 16.5;
+	  $rent7->begin_rent = '2014-05-01';
+	  $rent7->end_rent  = '2016-04-30';
+	  $rent7->save();
+
+	  $rent8          = new Rent;
+	  $rent8->lease_id = 8;
+	  $rent8->rent_amount  = 21.75;
+	  $rent8->begin_rent = '2012-06-06';
+	  $rent8->end_rent  = '2022-06-05';
+	  $rent8->save();
+
+	  $rent9          = new Rent;
+	  $rent9->lease_id = 9;
+	  $rent9->rent_amount  = 18;
+	  $rent9->begin_rent = '2010-01-01';
+	  $rent9->end_rent  = '2012-12-31';
+	  $rent9->save();
+
+	  $rent10          = new Rent;
+	  $rent10->lease_id = 10;
+	  $rent10->rent_amount  = 25.5;
+	  $rent10->begin_rent = '2006-01-01';
+	  $rent10->end_rent  = '2015-10-31';
+	  $rent10->save();
+
+	  $rent11          = new Rent;
+	  $rent11->lease_id = 11;
+	  $rent11->rent_amount  = 22.50;
+	  $rent11->begin_rent = '2010-10-01';
+	  $rent11->end_rent  = '2016-11-02';
+	  $rent11->save();
+
+	  $rent12          = new Rent;
+	  $rent12->lease_id = 12;
+	  $rent12->rent_amount  = 28;
+	  $rent12->begin_rent = '2013-09-01';
+	  $rent12->end_rent  = '2015-08-31';
+	  $rent12->save();
+
+	  $rent13          = new Rent;
+	  $rent13->lease_id = 13;
+	  $rent13->rent_amount  = '16.50';
+	  $rent13->begin_rent = '2014-05-01';
+	  $rent13->end_rent  = '2016-04-30';
+	  $rent13->save();
+
+	  $rent14          = new Rent;
+	  $rent14->lease_id = 14;
+	  $rent14->rent_amount  = '21.75';
+	  $rent14->begin_rent = '2012-06-06';
+	  $rent14->end_rent  = '2022-06-05';
+	  $rent14->save();
+
+	  $rent15          = new Rent;
+	  $rent15->lease_id = 15;
+	  $rent15->rent_amount  = 16.5;
+	  $rent15->begin_rent = '2014-05-01';
+	  $rent15->end_rent  = '2016-04-30';
+	  $rent15->save();
+
+	  $rent16          = new Rent;
+	  $rent16->lease_id = 16;
+	  $rent16->rent_amount  = '21.25';
+	  $rent16->begin_rent = '2012-06-06';
+	  $rent16->end_rent  = '2022-06-05';
+	  $rent16->save();
+	
+	  $rent17          = new Rent;
+	  $rent17->lease_id = 17;
+	  $rent17->rent_amount  = '16.5';
+	  $rent17->begin_rent = '2014-05-01';
+	  $rent17->end_rent  = '2016-04-30';
+	  $rent17->save();
+
+	  $rent18          = new Rent;
+	  $rent18->lease_id = 18;
+	  $rent18->rent_amount  = '21.25';
+	  $rent18->begin_rent = '2012-06-06';
+	  $rent18->end_rent  = '2022-06-05';
+	  $rent18->save();
+	
+	  echo "Rents seeded";
 
 });

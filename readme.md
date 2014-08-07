@@ -1,25 +1,34 @@
-## Laravel PHP Framework
+# CSCI S-15 >> Project 3
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+## Live URL
+<http://p4-buildings-ks.gopagoda.com/>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+## Description of the project 
+P4 - Final project
+-----------
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+This application brings up a portfolio of buildings, shown on the index page.
+By selecting a building a 'rent-roll' of individual units/tenants appears on the detail page. 
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Details for teaching team
 
-## Official Documentation
+DB consists of five tables: 
+  1.`users`
+  2.`buildings`
+  3.`units`
+  4.`leases` and 
+  5.`rents`
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+Buildings have a one-to-many relationship to Units.   
+Units belong to buildings and have *building_id* as FK; units must belong to a building.  
+Leases have a one-to-one relationship to Units; it belongsTo Units and has many Rents. It has *unit_id* as FK.  
+Rents belong to Leases and have *lease_id* as FK; rents must be associated with a lease.  
 
-### Contributing To Laravel
+The logic is performed in the Routes.php file
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
+Implemented authentication and validation, but would like to implement client-side error-checking.
 
-### License
+## Outside code
+Used Laravel as framework
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Used class examples (foobooks) as a model.
