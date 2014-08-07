@@ -13,11 +13,11 @@ By selecting a building a 'rent-roll' of individual units/tenants appears on the
 ## Details for teaching team
 
 DB consists of five tables: 
-  1.`users`
-  2.`buildings`
-  3.`units`
-  4.`leases` and 
-  5.`rents`
+  1.`users`  
+  2.`buildings`  
+  3.`units`  
+  4.`leases` and   
+  5.`rents`  
 
 Buildings have a one-to-many relationship to Units.   
 Units belong to buildings and have *building_id* as FK; units must belong to a building.  
