@@ -314,165 +314,164 @@ Route::get('/seed-portfolio',function() {
   
   # Associate has to be called *before* the unit is created (save())
   # Equivalent of $unit->building_id = $building1->building_id
-  $unit1->building()->associate($building1);
-  $unit2->building()->associate($building1);
-  $unit3->building()->associate($building1);
-  $unit4->building()->associate($building1);
-  $unit5->building()->associate($building1);
-  $unit6->building()->associate($building1);
-  $unit7->building()->associate($building1);
-  $unit8->building()->associate($building1);
   
   # Associate has to be called *before* the lease is created (save())
   # Equivalent of $lease->unit_id = $unit1->unit_id etc...
-  $lease1->building()->associate($unit1);
-  $lease2->building()->associate($unit2);
-  $lease3->building()->associate($unit3);
-  $lease4->building()->associate($unit4);
-  $lease5->building()->associate($unit5);
-  $lease6->building()->associate($unit6);
-  $lease7->building()->associate($unit7);
-  $lease8->building()->associate($unit8);
   
   # Associate has to be called *before* the rent is created (save())
   # Equivalent of $rent->lease_id = $lease1->lease_id etc...
-  $rent1->building()->associate($lease1);
-  $rent2->building()->associate($lease2);
-  $rent3->building()->associate($lease3);
-  $rent4->building()->associate($lease4);
-  $rent5->building()->associate($lease5);
-  $rent6->building()->associate($lease6);
-  $rent7->building()->associate($lease7);
-  $rent8->building()->associate($lease8);
-  
   
   $unit1              = new Unit;
   $unit1->unit_number = 101;
   $unit1->unit_sf     = 1200;
   $unit1->occupied    = 'occupied';
+  $unit1->building()->associate($building1);
   $unit1->save();
   
   $unit2              = new Unit;
   $unit2->unit_number = 102;
   $unit2->unit_sf     = 1800;
   $unit2->occupied    = 'occupied';
+  $unit2->building()->associate($building1);
   $unit2->save();
   
   $unit3              = new Unit;
   $unit3->unit_number = 103;
   $unit3->unit_sf     = 1000;
   $unit3->occupied    = 'occupied';
+  $unit3->building()->associate($building1);
   $unit3->save();
   
   $unit4              = new Unit;
   $unit4->unit_number = 201;
   $unit4->unit_sf     = 1000;
   $unit4->occupied    = 'occupied';
+  $unit4->building()->associate($building1);
   $unit4->save();
   
   $unit5              = new Unit;
   $unit5->unit_number = 202;
   $unit5->unit_sf     = 1000;
   $unit5->occupied    = 'occupied';
+  $unit5->building()->associate($building1);
   $unit5->save();
   
   $unit6              = new Unit;
   $unit6->unit_number = 203;
   $unit6->unit_sf     = 1000;
   $unit6->occupied    = 'occupied';
+  $unit6->building()->associate($building1);
   $unit6->save();
   
   $unit7              = new Unit;
   $unit7->unit_number = 204;
   $unit7->unit_sf     = 1000;
   $unit7->occupied    = 'occupied';
+  $unit7->building()->associate($building1);
   $unit7->save();
   
   $unit8              = new Unit;
   $unit8->unit_number = 300;
   $unit8->unit_sf     = 3000;
   $unit8->occupied    = 'occupied';
+  $unit8->building()->associate($building1);
   $unit8->save();
   
   $lease1         = new Lease;
   $lease1->tenant = 'Zachariah & Zachariah, LLP';
+  $lease1->building()->associate($unit1);
   $lease1->save();
   
   
   $lease2         = new Lease;
   $lease2->tenant = 'Ivax Corp.';
+  $lease2->building()->associate($unit2);
   $lease2->save();
   
   $lease3         = new Lease;
   $lease3->tenant = 'Stanley Rental';
+  $lease3->building()->associate($unit3);
   $lease3->save();
   
   $lease4         = new Lease;
   $lease4->tenant = 'Quintilium';
+  $lease4->building()->associate($unit4);
   $lease4->save();
   
   $lease5         = new Lease;
   $lease5->tenant = 'Pilgrims Pride';
+  $lease5->building()->associate($unit5);
   $lease5->save();
   
   $lease6         = new Lease;
   $lease6->tenant = 'A.G. Edwards Inc.';
+  $lease6->building()->associate($unit6);
   $lease6->save();
   
   $lease7         = new Lease;
   $lease7->tenant = 'First Data Corp.';
+  $lease7->building()->associate($unit7);
   $lease7->save();
   
   $lease8         = new Lease;
   $lease8->tenant = 'Praxomide';
+  $lease8->building()->associate($unit8);
   $lease8->save();
   
   $rent1              = new Rent;
   $rent1->rent_amount = 18;
   $rent1->begin_rent  = '2010-01-01';
   $rent1->end_rent    = '2012-12-31';
+  $rent1->building()->associate($lease1);
   $rent1->save();
   
   $rent2              = new Rent;
   $rent2->rent_amount = 25.5;
   $rent2->begin_rent  = '2009-05-01';
   $rent2->end_rent    = '2014-10-31';
+  $rent2->building()->associate($lease2);
   $rent2->save();
   
   $rent3              = new Rent;
   $rent3->rent_amount = 22.50;
   $rent3->begin_rent  = '2013-12-03';
   $rent3->end_rent    = '2018-12-02';
+  $rent3->building()->associate($lease3);
   $rent3->save();
   
   $rent4              = new Rent;
   $rent4->rent_amount = 28;
   $rent4->begin_rent  = '2010-09-01';
   $rent4->end_rent    = '2014-08-31';
+  $rent4->building()->associate($lease4);
   $rent4->save();
   
   $rent5              = new Rent;
   $rent5->rent_amount = 16.5;
   $rent5->begin_rent  = '2014-05-01';
   $rent5->end_rent    = '2016-04-30';
+  $rent5->building()->associate($lease5);
   $rent5->save();
   
   $rent6              = new Rent;
   $rent6->rent_amount = 21.75;
   $rent6->begin_rent  = '2012-06-06';
   $rent6->end_rent    = '2022-06-05';
+  $rent6->building()->associate($lease6);
   $rent6->save();
   
   $rent7              = new Rent;
   $rent7->rent_amount = 16.5;
   $rent7->begin_rent  = '2014-05-01';
   $rent7->end_rent    = '2016-04-30';
+  $rent7->building()->associate($lease7);
   $rent7->save();
   
   $rent8              = new Rent;
   $rent8->rent_amount = 21.75;
   $rent8->begin_rent  = '2012-06-06';
   $rent8->end_rent    = '2022-06-05';
+  $rent8->building()->associate($lease8);
   $rent8->save();
   
   #begin seeding 2nd building
@@ -484,53 +483,25 @@ Route::get('/seed-portfolio',function() {
   
   # Associate has to be called *before* the unit is created (save())
   # Equivalent of $unit->building_id = $building1->building_id
-  $unit9->building()->associate($building2);
-  $unit10->building()->associate($building2);
-  $unit11->building()->associate($building2);
-  $unit12->building()->associate($building2);
-  $unit13->building()->associate($building2);
-  $unit14->building()->associate($building2);
-  $unit15->building()->associate($building2);
-  $unit16->building()->associate($building2);
-  $unit17->building()->associate($building2);
-  $unit18->building()->associate($building2);
-  
+
   # Associate has to be called *before* the lease is created (save())
   # Equivalent of $lease->unit_id = $unit1->unit_id etc...
-  $lease9->building()->associate($unit9);
-  $lease10->building()->associate($unit10);
-  $lease11->building()->associate($unit11);
-  $lease12->building()->associate($unit12);
-  $lease13->building()->associate($unit13);
-  $lease14->building()->associate($unit14);
-  $lease15->building()->associate($unit15);
-  $lease16->building()->associate($unit16);
-  $lease17->building()->associate($unit17);
-  $lease18->building()->associate($unit18);
   
   # Associate has to be called *before* the rent is created (save())
   # Equivalent of $rent->lease_id = $lease1->lease_id etc...
-  $rent9->building()->associate($lease9);
-  $rent10->building()->associate($lease10);
-  $rent11->building()->associate($lease11);
-  $rent12->building()->associate($lease12);
-  $rent13->building()->associate($lease13);
-  $rent14->building()->associate($lease14);
-  $rent15->building()->associate($lease15);
-  $rent16->building()->associate($lease16);
-  $rent17->building()->associate($lease17);
-  $rent18->building()->associate($lease18);
-  
+
   $unit9              = new Unit;
   $unit9->unit_number = 100;
   $unit9->unit_sf     = 750;
   $unit9->occupied    = 'occupied';
+  $unit9->building()->associate($building2);
   $unit9->save();
   
   $unit10              = new Unit;
   $unit10->unit_number = 111;
   $unit10->unit_sf     = 5000;
   $unit10->occupied    = 'occupied';
+  $unit10->building()->associate($building2);
   $unit10->save();
   
   
@@ -538,88 +509,107 @@ Route::get('/seed-portfolio',function() {
   $unit11->unit_number = 115;
   $unit11->unit_sf     = 2000;
   $unit11->occupied    = 'occupied';
+  $unit11->building()->associate($building2);
   $unit11->save();
   
   $unit12              = new Unit;
   $unit12->unit_number = 201;
   $unit12->unit_sf     = 1750;
   $unit12->occupied    = 'occupied';
+  $unit12->building()->associate($building2);
   $unit12->save();
   
   $unit13              = new Unit;
   $unit13->unit_number = 202;
   $unit13->unit_sf     = 1000;
   $unit13->occupied    = 'occupied';
+  $unit13->building()->associate($building2);
   $unit13->save();
   
   $unit14              = new Unit;
   $unit14->unit_number = 203;
   $unit14->unit_sf     = 3500;
   $unit14->occupied    = 'occupied';
+  $unit14->building()->associate($building2);
   $unit14->save();
   
   $unit15              = new Unit;
   $unit15->unit_number = 215;
   $unit15->unit_sf     = 1500;
   $unit15->occupied    = 'occupied';
+  $unit15->building()->associate($building2);
   $unit15->save();
   
   $unit16              = new Unit;
   $unit16->unit_number = 300;
   $unit16->unit_sf     = 7750;
   $unit16->occupied    = 'occupied';
+  $unit16->building()->associate($building2);
   $unit16->save();
   
   $unit17              = new Unit;
   $unit17->unit_number = 400;
   $unit17->unit_sf     = 3750;
   $unit17->occupied    = 'occupied';
+  $unit17->building()->associate($building2);
   $unit17->save();
   
   $unit18              = new Unit;
   $unit18->unit_number = 450;
   $unit18->unit_sf     = 4000;
   $unit18->occupied    = 'occupied';
+  $unit18->building()->associate($building2);
   $unit18->save();
   
   $lease9         = new Lease;
   $lease9->tenant = 'LSAT Helpers';
+  $lease9->building()->associate($unit9);
+
   $lease9->save();
   
   $lease10         = new Lease;
   $lease10->tenant = 'Movifone';
+  $lease10->building()->associate($unit10);
   $lease10->save();
   
   $lease11         = new Lease;
   $lease11->tenant = 'Reachout Brother';
+  $lease11->building()->associate($unit11);
   $lease11->save();
   
   $lease12         = new Lease;
   $lease12->tenant = 'Kilpatrick Corp.';
+  $lease12->building()->associate($unit12);
   $lease12->save();
   
   $lease13         = new Lease;
   $lease13->tenant = 'Albert, Stanley & Howard';
+  $lease13->building()->associate($unit13);
   $lease13->save();
   
   $lease14         = new Lease;
   $lease14->tenant = 'Newburgh Pediatrics';
+  $lease14->building()->associate($unit14);
   $lease14->save();
   
   $lease15         = new Lease;
   $lease15->tenant = 'Prideloni & Macaroni';
+  $lease15->building()->associate($unit15);
   $lease15->save();
   
   $lease16         = new Lease;
   $lease16->tenant = 'Inc. Magazine';
+  $lease16->building()->associate($unit16);
   $lease16->save();
   
   $lease17         = new Lease;
   $lease17->tenant = 'Youbiz';
+  $lease17->building()->associate($unit17);
   $lease17->save();
   
   $lease18         = new Lease;
   $lease18->tenant = 'Baxter International Inc. ';
+  $lease18->building()->associate($unit18);
   $lease18->save();
   
   
@@ -627,60 +617,70 @@ Route::get('/seed-portfolio',function() {
   $rent9->rent_amount = 18;
   $rent9->begin_rent  = '2010-01-01';
   $rent9->end_rent    = '2012-12-31';
+  $rent9->building()->associate($lease9);
   $rent9->save();
   
   $rent10              = new Rent;
   $rent10->rent_amount = 25.5;
   $rent10->begin_rent  = '2006-01-01';
   $rent10->end_rent    = '2015-10-31';
+  $rent10->building()->associate($lease10);
   $rent10->save();
   
   $rent11              = new Rent;
   $rent11->rent_amount = 22.50;
   $rent11->begin_rent  = '2010-10-01';
   $rent11->end_rent    = '2016-11-02';
+  $rent11->building()->associate($lease11);
   $rent11->save();
   
   $rent12              = new Rent;
   $rent12->rent_amount = 28;
   $rent12->begin_rent  = '2013-09-01';
   $rent12->end_rent    = '2015-08-31';
+  $rent12->building()->associate($lease12);
   $rent12->save();
   
   $rent13              = new Rent;
   $rent13->rent_amount = '16.50';
   $rent13->begin_rent  = '2014-05-01';
   $rent13->end_rent    = '2016-04-30';
+  $rent13->building()->associate($lease13);
   $rent13->save();
   
   $rent14              = new Rent;
   $rent14->rent_amount = '21.75';
   $rent14->begin_rent  = '2012-06-06';
   $rent14->end_rent    = '2022-06-05';
+  $rent14->building()->associate($lease14);
   $rent14->save();
   
   $rent15              = new Rent;
   $rent15->rent_amount = 16.5;
   $rent15->begin_rent  = '2014-05-01';
   $rent15->end_rent    = '2016-04-30';
+  $rent15->building()->associate($lease15);
   $rent15->save();
   
   $rent16              = new Rent;
   $rent16->rent_amount = '21.25';
   $rent16->begin_rent  = '2012-06-06';
   $rent16->end_rent    = '2022-06-05';
+  $rent16->building()->associate($lease16);
   $rent16->save();
   
   $rent17              = new Rent;
   $rent17->rent_amount = '16.5';
   $rent17->begin_rent  = '2014-05-01';
   $rent17->end_rent    = '2016-04-30';
+  $rent17->building()->associate($lease17);
   $rent17->save();
   
   $rent18              = new Rent;
   $rent18->rent_amount = '21.25';
   $rent18->begin_rent  = '2012-06-06';
   $rent18->end_rent    = '2022-06-05';
+  $rent18->building()->associate($lease18);
   $rent18->save();
   
   
