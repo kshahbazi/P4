@@ -249,25 +249,12 @@ Route::get('/building-units/{id?}', array('before' => 'auth',function($id = '1')
 		
 		$building_units .= '<tr class="unitRows">
 							<td>Unit '.$unit->unit_number.'</td>
-							<td>'.$unit->unit_sf.'sf</td>';
-		
-		# if unit is 'occupied' there will be a
-		# $lease->tenant and $rent...etc.
-		if($lease->count())
-		{
-			$building_units .=	'<td>'.$lease->tenant.'</td>
-								<td>$'.$rent->rent_amount.'</td>
-								<td>'.$rent->end_rent.'</td>';
-			
-		}
-		# instead just output 'vacant'
-		else
-		{
-			$building_units .= '<td>vacant</td>
-			</tr>';
+							<td>'.$unit->unit_sf.'sf</td>
+							<td>'.$lease->tenant.'</td>
+							<td>$'.$rent->rent_amount.'</td>
+							<td>'.$rent->end_rent.'</td></tr>';
 		}					
-	  }
-	}
+	 }
 	# building has no units assigned
 	else
     {
