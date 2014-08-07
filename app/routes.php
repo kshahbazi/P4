@@ -280,18 +280,6 @@ Route::get('/add-user', function() {
 
 });
 
-Route::get('/db-get', function() {
-
-    # The all() method will fetch all the rows from a Model/table
-    $users = User::all();
-
-    # Typically we'd pass $books to a View, but for quick and dirty demonstration, let's just output here...
-    foreach($users as $user) {
-        echo "email: ".$user->email." user: ".$user->user_name." <br>";
-    }
-
-});
-
 Route::get('/db-delete', function() {
 
     # First get a user to delete
