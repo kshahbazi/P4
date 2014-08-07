@@ -12,7 +12,7 @@ By selecting a building a 'rent-roll' of individual units/tenants appears on the
 
 ## Details for teaching team
 
-DB consists of five tables: 
+DB consists of five tables:  
   1.`users`  
   2.`buildings`  
   3.`units`  
