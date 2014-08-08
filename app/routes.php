@@ -92,7 +92,7 @@ Route::post('/', array('before' => 'auth', function()
 	
 		$building_list .= "</table></p>";
 	
-		return View::make('/')->with('results',$building_list);
+		return View::make('/building-units')->with('results',$building_list);
 	}
 	#
 	#
