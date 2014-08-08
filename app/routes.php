@@ -92,7 +92,7 @@ Route::post('/', array('before' => 'auth', function()
 	
 		$building_list .= "</table></p>";
 	
-		return View::make('/list')->with('results',$building_list);
+		return View::make('/')->with('results',$building_list);
 	}
 	#
 	#
@@ -103,11 +103,6 @@ Route::post('/', array('before' => 'auth', function()
 			return Redirect::to('/')->with('flash_message', 'No matches found.');;
 	}
 }));
-
-Route::get('/list', function()
-{
-	return View::make('list');
-});
 
 ######################################
 // the login page, view
@@ -176,7 +171,7 @@ Route::post('signup', array('before' => 'csrf', function() {
 	# Log in
 	Auth::login($user);
 
-	return Redirect::to('/list-buildings')->with('flash_message', 'Welcome!');
+	return Redirect::to('/building-units')->with('flash_message', 'Welcome!');
 
 }));
 	
@@ -190,32 +185,6 @@ Route::get('/logout', function() {
 
 });
 
-
-######################################
-/*
-Route::get('/list-buildings', function() {
-
-   	$buildings =  Building::get(array('building_id','address','building_sf'));
-	$building_list = "<p><table>";
-	foreach($buildings as $building) {
-		
-		// square footage saved as int in db
-		// format to show comma seperator
-		$sf= number_format($building->building_sf);
-		
-		$building_list .=  "<tr><td><ul><li><a href='/building-units/".$building->building_id ."'><img class='buildingImages' src='/images/".
-			$building->address.".jpg' alt='".$building->building_id ."'></a></li>";
-		
-        $building_list .=  "<li>".$building->address."</li>";
-        $building_list .=  "<li>".$sf." SF"."</li></ul></td></tr>";
-    }
-	
-	$building_list .= "</table></p>";
-	
-	return View::make('index')->with('results',$building_list);
-	
-});
-*/
 ######################################
 
 Route::get('/building-units/{id?}', array('before' => 'auth',function($id = '1') {
@@ -224,8 +193,6 @@ Route::get('/building-units/{id?}', array('before' => 'auth',function($id = '1')
 	
 	#get all the units for this building
 	$units = Unit::whereBuilding_id($id)->get();
-	
-	//$tenants = DB::select('SELECT leases.tenant FROM buildings, units, leases WHERE buildings.building_id = units.building_id and units.unit_id=leases.unit_id');
 	
 	$building_units = "<h2>".$buildings->address."</h2>
 					   <h4>Square footage ".number_format($buildings->building_sf)."</h4>
@@ -255,7 +222,7 @@ Route::get('/building-units/{id?}', array('before' => 'auth',function($id = '1')
 							<td>'.$rent->end_rent.'</td></tr>';
 		}					
 	 }
-	# building has no units assigned
+	# building has no units assigned, i.e. isEmpty();
 	else
     {
 		$building_units .= " is empty";
@@ -266,29 +233,6 @@ Route::get('/building-units/{id?}', array('before' => 'auth',function($id = '1')
 	return View::make('/building-units')->with('results',$building_units);
 	
 }));
-
-Route::get('/add-user', function() {
-    
-    DB::statement('SET FOREIGN_KEY_CHECKS=0'); # Disable FK constraints so that all rows can be deleted, even if there's an associated FK
-	  DB::statement('TRUNCATE users');
-
-	  $user1              = new User;
-	  $user1->user_name   = 'Alfred';
-	  $user1->email       = 'all.red@msn.com';
-	  $user1->password    = Hash::make('allred');
-	  $user1->save();
-
-});
-
-Route::get('/db-delete', function() {
-
-    # First get a user to delete
-    $user = User::where('user_name', 'LIKE', '%Seaver%')->first();
-    $user->delete();
-
-    return "Deleted user; check the database to see if it worked...";
-
-});
 
 Route::get('/get-environment',function() {
 
