@@ -1,4 +1,4 @@
-# CSCI S-15 >> Project 3
+# CSCI S-15 >> Project 4
 
 ## Live URL
 <http://p4-buildings-ks.gopagoda.com/>
@@ -24,9 +24,9 @@ Units belong to buildings and have *building_id* as FK; units must belong to a b
 Leases have a one-to-one relationship to Units; it belongsTo Units and has many Rents. It has *unit_id* as FK.  
 Rents belong to Leases and have *lease_id* as FK; rents must be associated with a lease.  
 
-The logic is performed in the Routes.php file
-
-Implemented authentication and validation, but would like to implement client-side error-checking.
+The logic is performed in the Routes.php file, would like to move that into the cControllers.  
+Would also like to implement seeding in the Seeders.  
+Implemented authentication and validation, but would like to implement client-side error-checking.  
 
 ## Outside code
 Used Laravel as framework

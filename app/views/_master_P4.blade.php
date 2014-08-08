@@ -39,29 +39,4 @@
 
 </body>
 @yield('script')
-<script>
-// Style options.
-var map_styles = [ { featureType: "all", elementType: "all", stylers: [{ saturation: -100 } ] } ];
- 
-// Create styled map object.
-var styledMap = new google.maps.StyledMapType(map_styles, {name: "Styled Map"});
- 
-// Map options.
-var mapOptions = {
-	zoom: 13,
-	center: new google.maps.LatLng(59.428875, 24.741211),
-	mapTypeControlOptions: {
-	mapTypeIds: [google.maps.MapTypeId.ROADMAP, "styled"]
-	}
-};
-
-// Create map.
-var map = new google.maps.Map(document.getElementById("YOUR_MAP_ELEMENT_ID"), mapOptions);
-
-// Apply styles to map.
-map.mapTypes.set("styled", styledMap);
-map.setMapTypeId("styled");
-
-document.getElementById("myDIV").style.background = map;
-</script>
 </html>
