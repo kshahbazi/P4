@@ -379,99 +379,98 @@ Route::get('/seed-portfolio',function() {
   
   $lease1         = new Lease;
   $lease1->tenant = 'Zachariah & Zachariah, LLP';
-  $lease1->building()->associate($unit1);
+  $lease1->unit()->associate($unit1);
   $lease1->save();
-  
   
   $lease2         = new Lease;
   $lease2->tenant = 'Ivax Corp.';
-  $lease2->building()->associate($unit2);
+  $lease2->unit()->associate($unit2);
   $lease2->save();
   
   $lease3         = new Lease;
   $lease3->tenant = 'Stanley Rental';
-  $lease3->building()->associate($unit3);
+  $lease3->unit()->associate($unit3);
   $lease3->save();
   
   $lease4         = new Lease;
   $lease4->tenant = 'Quintilium';
-  $lease4->building()->associate($unit4);
+  $lease4->unit()->associate($unit4);
   $lease4->save();
   
   $lease5         = new Lease;
   $lease5->tenant = 'Pilgrims Pride';
-  $lease5->building()->associate($unit5);
+  $lease5->unit()->associate($unit5);
   $lease5->save();
   
   $lease6         = new Lease;
   $lease6->tenant = 'A.G. Edwards Inc.';
-  $lease6->building()->associate($unit6);
+  $lease6->unit()->associate($unit6);
   $lease6->save();
   
   $lease7         = new Lease;
   $lease7->tenant = 'First Data Corp.';
-  $lease7->building()->associate($unit7);
+  $lease7->unit()->associate($unit7);
   $lease7->save();
   
   $lease8         = new Lease;
   $lease8->tenant = 'Praxomide';
-  $lease8->building()->associate($unit8);
+  $lease8->unit()->associate($unit8);
   $lease8->save();
   
   $rent1              = new Rent;
   $rent1->rent_amount = 18;
   $rent1->begin_rent  = '2010-01-01';
   $rent1->end_rent    = '2012-12-31';
-  $rent1->building()->associate($lease1);
+  $rent1->lease()->associate($lease1);
   $rent1->save();
   
   $rent2              = new Rent;
   $rent2->rent_amount = 25.5;
   $rent2->begin_rent  = '2009-05-01';
   $rent2->end_rent    = '2014-10-31';
-  $rent2->building()->associate($lease2);
+  $rent2->lease()->associate($lease2);
   $rent2->save();
   
   $rent3              = new Rent;
   $rent3->rent_amount = 22.50;
   $rent3->begin_rent  = '2013-12-03';
   $rent3->end_rent    = '2018-12-02';
-  $rent3->building()->associate($lease3);
+  $rent3->lease()->associate($lease3);
   $rent3->save();
   
   $rent4              = new Rent;
   $rent4->rent_amount = 28;
   $rent4->begin_rent  = '2010-09-01';
   $rent4->end_rent    = '2014-08-31';
-  $rent4->building()->associate($lease4);
+  $rent4->lease()->associate($lease4);
   $rent4->save();
   
   $rent5              = new Rent;
   $rent5->rent_amount = 16.5;
   $rent5->begin_rent  = '2014-05-01';
   $rent5->end_rent    = '2016-04-30';
-  $rent5->building()->associate($lease5);
+  $rent5->lease()->associate($lease5);
   $rent5->save();
   
   $rent6              = new Rent;
   $rent6->rent_amount = 21.75;
   $rent6->begin_rent  = '2012-06-06';
   $rent6->end_rent    = '2022-06-05';
-  $rent6->building()->associate($lease6);
+  $rent6->lease()->associate($lease6);
   $rent6->save();
   
   $rent7              = new Rent;
   $rent7->rent_amount = 16.5;
   $rent7->begin_rent  = '2014-05-01';
   $rent7->end_rent    = '2016-04-30';
-  $rent7->building()->associate($lease7);
+  $rent7->lease()->associate($lease7);
   $rent7->save();
   
   $rent8              = new Rent;
   $rent8->rent_amount = 21.75;
   $rent8->begin_rent  = '2012-06-06';
   $rent8->end_rent    = '2022-06-05';
-  $rent8->building()->associate($lease8);
+  $rent8->lease()->associate($lease8);
   $rent8->save();
   
   #begin seeding 2nd building
@@ -563,53 +562,53 @@ Route::get('/seed-portfolio',function() {
   
   $lease9         = new Lease;
   $lease9->tenant = 'LSAT Helpers';
-  $lease9->building()->associate($unit9);
+  $lease9->unit()->associate($unit9);
 
   $lease9->save();
   
   $lease10         = new Lease;
   $lease10->tenant = 'Movifone';
-  $lease10->building()->associate($unit10);
+  $lease10->unit()->associate($unit10);
   $lease10->save();
   
   $lease11         = new Lease;
   $lease11->tenant = 'Reachout Brother';
-  $lease11->building()->associate($unit11);
+  $lease11->unit()->associate($unit11);
   $lease11->save();
   
   $lease12         = new Lease;
   $lease12->tenant = 'Kilpatrick Corp.';
-  $lease12->building()->associate($unit12);
+  $lease12->unit()->associate($unit12);
   $lease12->save();
   
   $lease13         = new Lease;
   $lease13->tenant = 'Albert, Stanley & Howard';
-  $lease13->building()->associate($unit13);
+  $lease13->unit()->associate($unit13);
   $lease13->save();
   
   $lease14         = new Lease;
   $lease14->tenant = 'Newburgh Pediatrics';
-  $lease14->building()->associate($unit14);
+  $lease14->unit()->associate($unit14);
   $lease14->save();
   
   $lease15         = new Lease;
   $lease15->tenant = 'Prideloni & Macaroni';
-  $lease15->building()->associate($unit15);
+  $lease15->unit()->associate($unit15);
   $lease15->save();
   
   $lease16         = new Lease;
   $lease16->tenant = 'Inc. Magazine';
-  $lease16->building()->associate($unit16);
+  $lease16->unit()->associate($unit16);
   $lease16->save();
   
   $lease17         = new Lease;
   $lease17->tenant = 'Youbiz';
-  $lease17->building()->associate($unit17);
+  $lease17->unit()->associate($unit17);
   $lease17->save();
   
   $lease18         = new Lease;
   $lease18->tenant = 'Baxter International Inc. ';
-  $lease18->building()->associate($unit18);
+  $lease18->unit()->associate($unit18);
   $lease18->save();
   
   
@@ -617,70 +616,70 @@ Route::get('/seed-portfolio',function() {
   $rent9->rent_amount = 18;
   $rent9->begin_rent  = '2010-01-01';
   $rent9->end_rent    = '2012-12-31';
-  $rent9->building()->associate($lease9);
+  $rent9->lease()->associate($lease9);
   $rent9->save();
   
   $rent10              = new Rent;
   $rent10->rent_amount = 25.5;
   $rent10->begin_rent  = '2006-01-01';
   $rent10->end_rent    = '2015-10-31';
-  $rent10->building()->associate($lease10);
+  $rent10->lease()->associate($lease10);
   $rent10->save();
   
   $rent11              = new Rent;
   $rent11->rent_amount = 22.50;
   $rent11->begin_rent  = '2010-10-01';
   $rent11->end_rent    = '2016-11-02';
-  $rent11->building()->associate($lease11);
+  $rent11->lease()->associate($lease11);
   $rent11->save();
   
   $rent12              = new Rent;
   $rent12->rent_amount = 28;
   $rent12->begin_rent  = '2013-09-01';
   $rent12->end_rent    = '2015-08-31';
-  $rent12->building()->associate($lease12);
+  $rent12->lease()->associate($lease12);
   $rent12->save();
   
   $rent13              = new Rent;
   $rent13->rent_amount = '16.50';
   $rent13->begin_rent  = '2014-05-01';
   $rent13->end_rent    = '2016-04-30';
-  $rent13->building()->associate($lease13);
+  $rent13->lease()->associate($lease13);
   $rent13->save();
   
   $rent14              = new Rent;
   $rent14->rent_amount = '21.75';
   $rent14->begin_rent  = '2012-06-06';
   $rent14->end_rent    = '2022-06-05';
-  $rent14->building()->associate($lease14);
+  $rent14->lease()->associate($lease14);
   $rent14->save();
   
   $rent15              = new Rent;
   $rent15->rent_amount = 16.5;
   $rent15->begin_rent  = '2014-05-01';
   $rent15->end_rent    = '2016-04-30';
-  $rent15->building()->associate($lease15);
+  $rent15->lease()->associate($lease15);
   $rent15->save();
   
   $rent16              = new Rent;
   $rent16->rent_amount = '21.25';
   $rent16->begin_rent  = '2012-06-06';
   $rent16->end_rent    = '2022-06-05';
-  $rent16->building()->associate($lease16);
+  $rent16->lease()->associate($lease16);
   $rent16->save();
   
   $rent17              = new Rent;
   $rent17->rent_amount = '16.5';
   $rent17->begin_rent  = '2014-05-01';
   $rent17->end_rent    = '2016-04-30';
-  $rent17->building()->associate($lease17);
+  $rent17->lease()->associate($lease17);
   $rent17->save();
   
   $rent18              = new Rent;
   $rent18->rent_amount = '21.25';
   $rent18->begin_rent  = '2012-06-06';
   $rent18->end_rent    = '2022-06-05';
-  $rent18->building()->associate($lease18);
+  $rent18->lease()->associate($lease18);
   $rent18->save();
   
   
