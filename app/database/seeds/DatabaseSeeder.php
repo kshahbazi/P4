@@ -10,8 +10,10 @@ class DatabaseSeeder extends Seeder {
 	public function run()
 	{
 		Eloquent::unguard();
-
-		// $this->call('UserTableSeeder');
+		
+		# Portfolio already seeded
+		// $this->call('PortfolioSeeder');
 	}
+	
 
 }
